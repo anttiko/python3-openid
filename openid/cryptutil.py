@@ -82,7 +82,7 @@ except ImportError:
 
     def longToBinary(l):
         if l == 0:
-            return b'\x00'
+            return b'0'
         b = bytearray(pickle.encode_long(l))
         b.reverse()
         return bytes(b)
@@ -101,8 +101,8 @@ else:
             raise ValueError('This function only supports positive integers')
 
         bytes = long_to_bytes(l)
-        if ord(bytes[0]) > 127:
-            return '\x00' + bytes
+        if bytes[0] > 127:
+            return b'0' + bytes
         else:
             return bytes
 
@@ -110,7 +110,7 @@ else:
         if not bytes:
             raise ValueError('Empty string passed to strToLong')
 
-        if ord(bytes[0]) > 127:
+        if bytes[0] > 127:
             raise ValueError('This function only supports positive integers')
 
         return bytes_to_long(bytes)
